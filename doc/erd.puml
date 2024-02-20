@@ -1,0 +1,86 @@
+@startuml
+
+!include _defaults.puml
+
+title Entity Relationship Diagram
+
+hide circle
+skinparam Linetype ortho
+
+entity "Users" as entUsers {
+    * UserId : uuid <<PK>>
+    --
+    * Username : string <<unique>>
+    * PasswordHash : string
+    * PasswordSalt : string
+    * Admin : bool
+    * FullName : string
+    --
+    Email : string
+}
+
+entity "LicenseFiles" as entLicenseFiles {
+    * LicenseFileId : uuid <<PK>>
+    --
+    * Storage : string
+    * FilePath : string
+}
+
+entity "Licenses" as entLicenses {
+    * LicenseId : uuid <<PK>>
+    --
+    * LicenseNumber : string <<unique>>
+    * UserId : uuid <<FK>>
+    * ExpirationDate : Date
+    * ACategory : bool
+    * BCategory : bool
+    * BirthDate : date
+    * LicenseFileId : uuid <<FK>>
+    --
+    Issuer : string
+    IssueDate : Date
+}
+
+entUsers ||.o| entLicenses
+entLicenses ||.|| entLicenseFiles
+
+entity "Vehicles" as entVehicles {
+    * VehicleId : uuid <<PK>>
+    --
+    * VehiclePlate : string <<unique>>
+}
+
+entLicenses |o..o| entVehicles
+
+entity "DeliveryDrivers" as entDeliveryDrivers {
+    * DeliveryDriverId : uuid <<PK>>
+    --
+    * UserId : uuid <<FK>>
+    * LicenseId : uuid <<FK>>
+    * CNPJ : string
+}
+
+entUsers |o..|| entDeliveryDrivers
+entLicenses ||..o| entDeliveryDrivers
+
+entity "RentalPlans" as entRentalPlans {
+    * RentalPlanId : int <<PK>>
+    --
+    * Description : string
+    * Duration : int
+    * FineRate : int
+}
+
+entity "Rentals" as entRentals {
+    * RentalId : uuid <<PK>>
+    --
+    * VehicleId : uuid <<FK>>
+    * DriverLicenseId : uuid <<FK>>
+    * RentalPlanId : int <<FK>>
+}
+
+entVehicles ||..o{ entRentals
+entDeliveryDrivers ||.o{ entRentals
+entRentalPlans ||.o{ entRentals
+
+@enduml

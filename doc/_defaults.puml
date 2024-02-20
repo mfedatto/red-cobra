@@ -1,5 +1,5 @@
 header "Red Cobra | Maurício Fedatto"
-footer "github.com/mfedatto"
+footer "github.com/mfedatto/red-cobra"
 
 skinparam DefaultFontName 'Consolas', monospaced
 skinparam DefaultFontSize 12
