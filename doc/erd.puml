@@ -36,7 +36,6 @@ entity "Licenses" as entLicenses {
     * BCategory : bool
     * BirthDate : date
     * LicenseFileId : uuid <<FK>>
-    --
     Issuer : string
     IssueDate : Date
 }
@@ -50,7 +49,7 @@ entity "Vehicles" as entVehicles {
     * VehiclePlate : string <<unique>>
 }
 
-entLicenses |o..o| entVehicles
+entVehicles |o..o| entLicenses
 
 entity "DeliveryDrivers" as entDeliveryDrivers {
     * DeliveryDriverId : uuid <<PK>>
@@ -81,6 +80,32 @@ entity "Rentals" as entRentals {
 
 entVehicles ||..o{ entRentals
 entDeliveryDrivers ||.o{ entRentals
-entRentalPlans ||.o{ entRentals
+entRentals }o..|| entRentalPlans
+
+entity "DeliveryOrders" as entDeliveryOrders {
+    * DeliveryOrderId : uuid <<PK>>
+    --
+    * DeliveryOrderStatusId : int <<FK>>
+    * OrderCreationTime : DateTime
+    * DeliveryFee : double
+}
+
+entity "DeliveryOrderStatus" as entDeliveryOrderStatus {
+    * DeliveryOrderStatusId : int <<PK>>
+    --
+    * Description : string
+}
+
+entDeliveryOrders }o..|| entDeliveryOrderStatus
+
+entity "DeliveryTravels" as entDeliveryTravels {
+    * DeliveryTravelId : uuid <<PK>>
+    --
+    * DeliveryOrderId : uuid <<FK>>
+    * DeliveryDriverId : uuid <<FK>>
+}
+
+entDeliveryOrders ||.|{ entDeliveryTravels
+entDeliveryDrivers ||..|{ entDeliveryTravels
 
 @enduml
