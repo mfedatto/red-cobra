@@ -1,24 +1,30 @@
-# Desafio backend Mottu.
-Seja muito bem-vindo ao desafio backend da Mottu, obrigado pelo interesse em fazer parte do nosso time e ajudar a melhorar a vida de milhares de pessoas.
+# Desafio backend
+
+Seja muito bem-vindo ao desafio backend, obrigado pelo interesse em fazer parte do nosso time e ajudar a melhorar a vida de milhares de pessoas.
+
 ## Instruções
+
 - A vaga é presencial em São Paulo no bairro do Butantã.
 - O desafio é válido para diversos níveis, portanto não se preocupe se não conseguir resolver por completo.
 - A aplicação só será avaliada se estiver rodando, se necessário crie um passo a passo para isso.
-- Faça um clone do repositório em seu git pessoal para iniciar o desenvolvimento e não cite nada relacionado a Mottu.
+- Faça um clone do repositório em seu git pessoal para iniciar o desenvolvimento.
 - Após finalização envie um e-mail para o recrutador informando o repositório para análise.
-  
-## Requisitos não funcionais 
+
+## Requisitos não funcionais
+
 - A aplicação deverá ser construida com .Net utilizando C#.
 - Utilizar apenas os seguintes bancos de dados ( Postgress, MongoDB)
 - Escolha o sistema de mensageria de sua preferencia( RabbitMq, Sqs/Sns , Kafka, Gooogle Pub/Sub ou qualquer outro)
 
 ## Aplicação a ser desenvolvida
+
 Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregadores. Quando um entregador estiver registrado e com uma locação ativa poderá também efetuar entregas de pedidos disponíveis na plataforma.
+
 ### Casos de uso
+
 - Eu como usuário admin quero cadastrar uma nova moto.
   - Os dados obrigatórios da moto são Identificador, Ano, Modelo e Placa
   - A placa é um dado único e não pode se repetir.
-    
 - Eu como usuário admin quero consultar as motos existentes na plataforma e conseguir filtrar pela placa.
 - Eu como usuário admin quero modificar uma moto alterando apenas sua placa que foi cadastrado indevidamente.
 - Eu como usuário admin quero remover uma moto que foi cadastrado incorretamente, desde que não tenha registro de locações.
@@ -57,9 +63,9 @@ Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregad
 - Eu como entregador quero aceitar um pedido.
   - Somente entregadores que tenham sido notificados podem aceitar o pedido.
 - Eu como entregador quero efetuar a entrega do pedido.
-      
 
 ## Diferenciais 🚀
+
 - Testes unitários
 - Testes de integração
 - EntityFramework e/ou Dapper
@@ -68,9 +74,7 @@ Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregad
 - Documentação
 - Tratamento de erros
 - Arquitetura e modelagem de dados
-- Código escrito em linga inglesa
+- Código escrito em lingua inglesa
 - Código limpo e organizado
 - Logs bem estruturados
 - Seguir convenções utilizadas pela comunidade
-  
-
