@@ -67,7 +67,8 @@ entity "RentalPlans" as entRentalPlans {
     --
     * Description : string
     * Duration : int
-    * FineRate : int
+    * Fee : double
+    * FineRate : double
 }
 
 entity "Rentals" as entRentals {
@@ -76,6 +77,8 @@ entity "Rentals" as entRentals {
     * VehicleId : uuid <<FK>>
     * DriverLicenseId : uuid <<FK>>
     * RentalPlanId : int <<FK>>
+    * PeriodStartDate : Date
+    * PeriodEndDate : Date
 }
 
 entVehicles ||..o{ entRentals
