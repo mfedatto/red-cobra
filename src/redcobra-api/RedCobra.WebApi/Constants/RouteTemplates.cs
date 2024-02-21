@@ -4,8 +4,7 @@ public static class RouteTemplates
 {
     public static class Users_v1
     {
-        public const string Version = "v1";
-        public const string Controller = "users";
+        public const string Controller = "v1/users";
         public const string GetUsersList = "";
         public const string PostUser = "";
         public const string GetUser = $"{{{NamedArgs.UserId}}}";
