@@ -1,9 +1,9 @@
 #! /bin/bash
 
-SERVER='services.agz.vbox:5433'
-DB_NAME='config_provider'
-DB_USER='config_provider'
-DB_PASSWD='config_provider'
+SERVER='localhost:5432'
+DB_NAME='red-cobra'
+DB_USER='red-cobra'
+DB_PASSWD='!cyHen20'
 CNN_STRING="Server=$SERVER;Database=$DB_NAME;User Id=$DB_USER;Password=$DB_PASSWD;"
 
 ./../../dist/evolve-db/3.2.0/linux64/evolve \
