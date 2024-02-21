@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.WebApi", "RedCobra.WebApi\RedCobra.WebApi.csproj", "{3B9F920E-C00A-4D3F-833E-BFD352EDF0F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedCobra.WebApi", "RedCobra.WebApi\RedCobra.WebApi.csproj", "{3B9F920E-C00A-4D3F-833E-BFD352EDF0F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.HttpExceptions", "RedCobra.HttpExceptions\RedCobra.HttpExceptions.csproj", "{39155BBC-8329-4BBA-96CA-425E46152343}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedCobra.HttpExceptions", "RedCobra.HttpExceptions\RedCobra.HttpExceptions.csproj", "{39155BBC-8329-4BBA-96CA-425E46152343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Domain", "RedCobra.Domain\RedCobra.Domain.csproj", "{444553B1-770E-4A45-BC63-C431E240AE7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.CrossCutting", "RedCobra.CrossCutting\RedCobra.CrossCutting.csproj", "{13838DBF-E921-4585-AEFD-53B03D82140D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Infrastructure", "RedCobra.Infrastructure\RedCobra.Infrastructure.csproj", "{938CCC3B-4277-47C1-88ED-A9DE064F4845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{39155BBC-8329-4BBA-96CA-425E46152343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39155BBC-8329-4BBA-96CA-425E46152343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39155BBC-8329-4BBA-96CA-425E46152343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{444553B1-770E-4A45-BC63-C431E240AE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{444553B1-770E-4A45-BC63-C431E240AE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{444553B1-770E-4A45-BC63-C431E240AE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{444553B1-770E-4A45-BC63-C431E240AE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13838DBF-E921-4585-AEFD-53B03D82140D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13838DBF-E921-4585-AEFD-53B03D82140D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13838DBF-E921-4585-AEFD-53B03D82140D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13838DBF-E921-4585-AEFD-53B03D82140D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
