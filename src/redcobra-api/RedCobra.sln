@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.CrossCutting", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Infrastructure", "RedCobra.Infrastructure\RedCobra.Infrastructure.csproj", "{938CCC3B-4277-47C1-88ED-A9DE064F4845}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Application", "RedCobra.Application\RedCobra.Application.csproj", "{AF3D1416-9228-4CDB-AF7F-61D410C858D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{938CCC3B-4277-47C1-88ED-A9DE064F4845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF3D1416-9228-4CDB-AF7F-61D410C858D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF3D1416-9228-4CDB-AF7F-61D410C858D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF3D1416-9228-4CDB-AF7F-61D410C858D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF3D1416-9228-4CDB-AF7F-61D410C858D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

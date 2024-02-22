@@ -1,4 +1,5 @@
 ﻿using RedCobra.CrossCutting.CompositionRoot.Extensions;
+using RedCobra.WebApi.Middlewares;
 
 namespace RedCobra.WebApi.Extensions;
 

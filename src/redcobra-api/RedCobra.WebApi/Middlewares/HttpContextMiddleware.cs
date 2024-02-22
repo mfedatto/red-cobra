@@ -2,7 +2,7 @@
 using RedCobra.Domain.MainDbContext;
 using RedCobra.HttpExceptions;
 
-namespace RedCobra.WebApi.Extensions;
+namespace RedCobra.WebApi.Middlewares;
 
 public class HttpContextMiddleware
 {

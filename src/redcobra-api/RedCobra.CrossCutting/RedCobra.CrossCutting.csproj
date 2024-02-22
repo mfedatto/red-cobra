@@ -15,10 +15,11 @@
       <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
       <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.1" />
       <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.7.1" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RedCobra.Application\RedCobra.Application.csproj" />
       <ProjectReference Include="..\RedCobra.Domain\RedCobra.Domain.csproj" />
       <ProjectReference Include="..\RedCobra.Infrastructure\RedCobra.Infrastructure.csproj" />
     </ItemGroup>

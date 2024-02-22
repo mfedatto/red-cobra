@@ -12,7 +12,7 @@ public static class ContextBuilderInstallerExtensions
 
         builder
             .BuildContext<DomainContextBuilder>(configuration)
-            .BuildContext<TelemetryContextBuilder>(configuration)
+            //// .BuildContext<TelemetryContextBuilder>(configuration)
             .BuildContext<InfrastructureContextBuilder>(configuration)
             .BuildContext<ServiceContextBuilder>(configuration)
             .BuildContext<ApplicationContextBuilder>(configuration)

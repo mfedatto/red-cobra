@@ -7,7 +7,8 @@ public static class ContextBuilderAppConfiguratorExtensions
     public static WebApplication ConfigureApp(this WebApplication app)
     {
         return app.Configure<WebApiContextBuilder>()
-            .Configure<TelemetryContextBuilder>();
+            //// .Configure<TelemetryContextBuilder>()
+            ;
     }
 
     private static WebApplication Configure<T>(this WebApplication app)
