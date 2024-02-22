@@ -199,7 +199,7 @@ public class UserRepository : IUserRepository
     {
         using (SHA256 sha256Hash = SHA256.Create())
         {
-            byte[] bytes = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
 
             StringBuilder hashBuilder = new StringBuilder();
             

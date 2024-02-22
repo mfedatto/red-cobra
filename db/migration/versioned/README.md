@@ -1,3 +1,3 @@
 # Versioned
 
-Diretório de scripts que precisam ser executados em ordem específica, respeitando a natureza inerentemente incremental dos objetos de banco de dados.
+Directory of scripts that need to be executed in a specific order, respecting the inherently incremental nature of database objects.

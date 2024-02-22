@@ -1,3 +1,3 @@
 # Repeatable
 
-Diretório para scripts repetitivos, que podem ser executados repetidamente. O Evolve-DB só executa scripts repetitivos quando detecta alguma mudança no script após a aplicação de valores nos placeholders.
+Directory for repetitive scripts, which can be executed repeatedly. Evolve-DB only executes repetitive scripts when it detects a change in the script after applying values to placeholders.
