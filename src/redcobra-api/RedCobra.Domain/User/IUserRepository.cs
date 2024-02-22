@@ -3,31 +3,31 @@
 public interface IUserRepository
 {
     Task<IEnumerable<IUser>> GetUsersList(
-        CancellationToken cancellationToken,
-        string? username,
+        string username,
         bool? admin,
-        string? fullName,
-        string? email,
-        int? skip,
-        int? limit);
+        string fullName,
+        string email,
+        int skip,
+        int limit,
+        CancellationToken cancellationToken);
     Task<int> GetUsersCount(
-        CancellationToken cancellationToken,
-        string? username,
+        string username,
         bool? admin,
-        string? fullName,
-        string? email);
-    Task<IUser> AddUser(
-        CancellationToken cancellationToken,
+        string fullName,
+        string email,
+        CancellationToken cancellationToken);
+    Task AddUser(
         IUser user,
-        string password);
-    Task<IUser> GetUser(
-        CancellationToken cancellationToken,
-        Guid userId);
+        string password,
+        CancellationToken cancellationToken);
+    Task<IUser?> GetUser(
+        Guid userId,
+        CancellationToken cancellationToken);
     Task UpdateUser(
-        CancellationToken cancellationToken,
         IUser user,
-        string password);
+        string password,
+        CancellationToken cancellationToken);
     Task DeleteUser(
-        CancellationToken cancellationToken,
-        Guid userId);
+        Guid userId,
+        CancellationToken cancellationToken);
 }

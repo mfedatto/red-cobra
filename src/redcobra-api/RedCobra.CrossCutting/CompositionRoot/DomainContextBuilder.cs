@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using RedCobra.CrossCutting.CompositionRoot.Extensions;
 using RedCobra.Domain.AppSettings;
+using RedCobra.Domain.User;
 
 namespace RedCobra.CrossCutting.CompositionRoot;
 
@@ -9,7 +11,7 @@ public class DomainContextBuilder : IContextBuilderInstaller, IContextBuilderCon
 {
     public void Install(WebApplicationBuilder builder)
     {
-        //// builder.Services.AddSingleton<>();
+        builder.Services.AddSingleton<UserFactory>();
     }
 
     public void BindConfig(

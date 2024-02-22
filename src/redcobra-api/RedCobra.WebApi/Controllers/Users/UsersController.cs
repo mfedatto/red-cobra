@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RedCobra.Domain.BasicAuthentication;
+using RedCobra.Domain.Exceptions;
 using RedCobra.Domain.User;
 using RedCobra.Domain.Wrappers;
 using RedCobra.WebApi.Constants;
+using RedCobra.WebApi.Extensions;
 
 namespace RedCobra.WebApi.Controllers.Users;
 
@@ -12,58 +13,59 @@ public class UsersController : Controller
     private readonly ILogger<UsersController> _logger;
     private readonly IUserApplication _application;
     private readonly UserFactory _factory;
-    private readonly BasicAuthenticationFactory _basicAuthenticationFactory;
 
     public UsersController(
         ILogger<UsersController> logger,
         IUserApplication application,
-        UserFactory factory,
-        BasicAuthenticationFactory basicAuthenticationFactory)
+        UserFactory factory)
     {
         _logger = logger;
         _application = application;
         _factory = factory;
-        _basicAuthenticationFactory = basicAuthenticationFactory;
     }
     
     [HttpGet(RouteTemplates.Users_v1.GetUsersList)]
     public async Task<ActionResult<PagedListWrapper<GetUserResponseModel>>> GetUsersList(
-        CancellationToken cancellationToken,
-        [FromQuery(Name = NamedArgs.UserName)] string? username = null,
-        [FromQuery(Name = NamedArgs.UserAdmin)] bool? admin = null,
-        [FromQuery(Name = NamedArgs.UserFullname)] string? fullName = null,
-        [FromQuery(Name = NamedArgs.UserEmail)] string? email = null,
-        [FromQuery(Name = NamedArgs.Skip)] int skip = 0,
-        [FromQuery(Name = NamedArgs.Limit)] int? limit = null)
+        [FromQuery(Name = NamedArgs.UserName)] string username,
+        [FromQuery(Name = NamedArgs.UserAdmin)] bool? admin,
+        [FromQuery(Name = NamedArgs.UserFullname)] string fullName,
+        [FromQuery(Name = NamedArgs.UserEmail)] string email,
+        [FromQuery(Name = NamedArgs.Skip)] int skip,
+        [FromQuery(Name = NamedArgs.Limit)] int limit,
+        CancellationToken cancellationToken)
     {
         return Ok(
             (await _application.GetUsersList(
-                cancellationToken,
                 username,
                 admin,
                 fullName,
                 email,
                 skip,
-                limit))
+                limit,
+                cancellationToken)
+                .ConfigureAwait(false))
             .WrapUp(user => user.ToGetUserResponseModel()));
     }
     
     [HttpPost(RouteTemplates.Users_v1.PostUser)]
     public async Task<ActionResult<PostUserResponseModel>> PostUser(
-        CancellationToken cancellationToken,
         [FromBody] PostUserRequestModel requestModel,
-        [FromHeader(Name = "Authorization")] string basicAuthenticationCredentials)
+        CancellationToken cancellationToken)
     {
-        IBasicAuthenticationCredentials basicAuthenticationCredentialsModel =
-            _basicAuthenticationFactory.Create(basicAuthenticationCredentials);
+        string decodedCredentials = requestModel.Credentials.DecodeBase64();
+        
+        if (!decodedCredentials.Contains(':'))
+            throw new BadCredentialsException();
+        
+        string[] decodedCredentialsParts = decodedCredentials.Split(':');
         
         return Ok(
             await _application.AddUser(
-                cancellationToken,
                 _factory.ToUser(
                     requestModel,
-                    basicAuthenticationCredentialsModel.Username),
-                basicAuthenticationCredentialsModel.Password));
+                    decodedCredentialsParts[0]),
+                decodedCredentialsParts[1],
+                cancellationToken));
     }
     
     [HttpGet(RouteTemplates.Users_v1.GetUser)]
@@ -73,27 +75,30 @@ public class UsersController : Controller
     {
         return Ok(
             await _application.GetUser(
-                cancellationToken,
-                userId));
+                userId,
+                cancellationToken));
     }
     
     [HttpPut(RouteTemplates.Users_v1.PutUser)]
     public async Task<ActionResult> PutUser(
         CancellationToken cancellationToken,
         [FromQuery(Name = NamedArgs.UserId)] Guid userId,
-        [FromBody] PutUserRequestModel requestModel,
-        [FromHeader(Name = "Authorization")] string basicAuthenticationCredentials)
+        [FromBody] PutUserRequestModel requestModel)
     {
-        IBasicAuthenticationCredentials basicAuthenticationCredentialsModel =
-            _basicAuthenticationFactory.Create(basicAuthenticationCredentials);
-
+        string decodedCredentials = requestModel.Credentials.DecodeBase64();
+        
+        if (!decodedCredentials.Contains(':'))
+            throw new BadCredentialsException();
+        
+        string[] decodedCredentialsParts = decodedCredentials.Split(':');
+        
         await _application.UpdateUser(
-            cancellationToken,
             _factory.ToUser(
                 userId,
                 requestModel,
-                basicAuthenticationCredentialsModel.Username),
-            basicAuthenticationCredentialsModel.Password);
+                decodedCredentialsParts[0]),
+            decodedCredentialsParts[1],
+            cancellationToken);
     
         return Ok();
     }
@@ -104,8 +109,8 @@ public class UsersController : Controller
         [FromQuery(Name = NamedArgs.UserId)] Guid userId)
     {
         await _application.DeleteUser(
-            cancellationToken,
-            userId);
+            userId,
+            cancellationToken);
         
         return Ok();
     }

@@ -24,7 +24,6 @@ file record User : IUser {
     public required Guid UserId { get; init; }
     public required string Username { get; init; }
     public required bool Admin { get; init; }
-    public required string FullName { get; init; }
-    public required string Email { get; init; }
+    public string FullName { get; init; }
+    public string Email { get; init; }
 }
-

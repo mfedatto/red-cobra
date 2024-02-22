@@ -12,6 +12,6 @@ public class ServiceContextBuilder : IContextBuilderInstaller
 {
     public void Install(WebApplicationBuilder builder)
     {
-        builder.Services.AddSingleton<IUserService, UserService>();
+        builder.Services.AddScoped<IUserService, UserService>();
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using System.Data.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 using RedCobra.Domain.AppSettings;
 using RedCobra.Domain.Exceptions;
@@ -11,13 +13,19 @@ namespace RedCobra.Infrastructure.MainDbContext;
 
 public sealed class UnitOfWork : IUnitOfWork
 {
+    private readonly ILogger<UnitOfWork> _logger;
+    private readonly IServiceProvider _serviceProvider;
     private readonly DbConnection _dbConnection;
     private DbTransaction? _dbTransaction;
     private bool _disposed;
 
     public UnitOfWork(
-        DatabaseConfig config)
+        ILogger<UnitOfWork> logger,
+        DatabaseConfig config,
+        IServiceProvider serviceProvider)
     {
+        _logger = logger;
+        _serviceProvider = serviceProvider;
         _dbConnection = new NpgsqlConnection(
                 new NpgsqlConnectionStringBuilder(
                         config.ConnectionString)
@@ -28,7 +36,11 @@ public sealed class UnitOfWork : IUnitOfWork
             );
     }
     
-    public IUserRepository UserRepository => new UserRepository(_dbConnection, _dbTransaction);
+    public IUserRepository UserRepository => new UserRepository(
+        _serviceProvider.GetService<ILogger<UserRepository>>(),
+        _dbConnection,
+        _dbTransaction,
+        _serviceProvider.GetService<UserFactory>());
 
     public async Task BeginTransactionAsync()
     {

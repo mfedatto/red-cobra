@@ -1,5 +1,4 @@
-﻿using RedCobra.Domain.BasicAuthentication;
-using RedCobra.Domain.User;
+﻿using RedCobra.Domain.User;
 
 namespace RedCobra.WebApi.Controllers.Users;
 

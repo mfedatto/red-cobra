@@ -19,29 +19,31 @@ public class UserApplication : IUserApplication
     }
     
     public async Task<PagedListWrapper<IUser>> GetUsersList(
-        CancellationToken cancellationToken,
-        string? username,
+        string username,
         bool? admin,
-        string? fullName,
-        string? email,
-        int skip = 0,
-        int? limit = null)
+        string fullName,
+        string email,
+        int skip,
+        int limit,
+        CancellationToken cancellationToken)
     {
         int total = await _service.GetUsersCount(
-            cancellationToken,
             username,
             admin,
             fullName,
-            email);
+            email,
+            cancellationToken);
         
         return (await _service.GetUsersList(
-            cancellationToken,
             username,
             admin,
             fullName,
             email,
             skip,
-            limit))
+            limit > 0
+                ? limit
+                : total - skip,
+            cancellationToken))
             .WrapUp(
                 skip,
                 limit,
@@ -49,42 +51,70 @@ public class UserApplication : IUserApplication
     }
     
     public async Task<IUser> AddUser(
-        CancellationToken cancellationToken,
         IUser user,
-        string password)
+        string password,
+        CancellationToken cancellationToken)
     {
+        if (!await IsUsernameAvailable(
+                user.Username,
+                cancellationToken))
+            throw new UsernameAlreadyInUseException();
+        
         return await _service.AddUser(
-            cancellationToken,
             user,
-            password);
+            password,
+            cancellationToken);
     }
     
     public async Task<IUser> GetUser(
-        CancellationToken cancellationToken,
-        Guid userId)
+        Guid userId,
+        CancellationToken cancellationToken)
     {
-        return await _service.GetUser(
-            cancellationToken,
-            userId);
+        try
+        {
+            return (await _service.GetUser(
+                userId,
+                cancellationToken))!;
+        }
+        catch (ArgumentNullException)
+        {
+            throw new UserNotFoundException();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new MultipleUsersFoundException();
+        }
     }
     
     public async Task UpdateUser(
-        CancellationToken cancellationToken,
         IUser user,
-        string password)
+        string password,
+        CancellationToken cancellationToken)
     {
         await _service.UpdateUser(
-            cancellationToken,
             user,
-            password);
+            password,
+            cancellationToken);
     }
     
     public async Task DeleteUser(
-        CancellationToken cancellationToken,
-        Guid userId)
+        Guid userId,
+        CancellationToken cancellationToken)
     {
         await _service.DeleteUser(
-            cancellationToken,
-            userId);
+            userId,
+            cancellationToken);
+    }
+
+    private async Task<bool> IsUsernameAvailable(
+        string username,
+        CancellationToken cancellationToken)
+    {
+        return await _service.GetUsersCount(
+            username,
+            null,
+            string.Empty,
+            string.Empty,
+            cancellationToken: cancellationToken) == 0;
     }
 }
