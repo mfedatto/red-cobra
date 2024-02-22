@@ -34,7 +34,11 @@ services:
       - red-cobra-net
 
   red-cobra-prometheus:
-    image: prom/prometheus:latest
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM prom/prometheus
+        COPY ./prometheus.yml /etc/prometheus
     container_name: 'red-cobra-prometheus'
     restart: unless-stopped
     hostname: 'red-cobra-prometheus'
@@ -47,10 +51,13 @@ services:
       PUID: '1000'
       PGID: '1000'
       TZ: 'America/Sao_Paulo'
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ${PROMETHEUS_CONFIG}/prometheus.yml:/etc/prometheus/prometheus.yml
       - ${PROMETHEUS_APP}:/prometheus
+    ports:
+      - '9090:9090'
     networks:
       - red-cobra-net
 
