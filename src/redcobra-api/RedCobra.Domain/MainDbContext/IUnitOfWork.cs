@@ -1,11 +1,10 @@
-﻿namespace RedCobra.Domain.MainDbContext;
+﻿using RedCobra.Domain.User;
+
+namespace RedCobra.Domain.MainDbContext;
 
 public interface IUnitOfWork : IDisposable
 {
-    //// IAplicacaoRepository AplicacaoRepository { get; }
-    //// ITipoRepository TipoRepository { get; }
-    //// IChaveRepository ChaveRepository { get; }
-    //// IValorRepository ValorRepository { get; }
+    IUserRepository UserRepository { get; }
 
     Task BeginTransactionAsync();
     Task CommitAsync();

@@ -1,17 +1,29 @@
-﻿using RedCobra.Domain.User;
+﻿using System.Data.Common;
+using RedCobra.Domain.User;
 
-namespace RedCobra.Services;
+namespace RedCobra.Infrastructure.MainDbContext.Repositories;
 
-public class UserService : IUserService
+public class UserRepository : IUserRepository
 {
+    private readonly DbConnection _dbConnection;
+    private readonly DbTransaction _dbTransaction;
+
+    public UserRepository(
+        DbConnection dbConnection,
+        DbTransaction dbTransaction)
+    {
+        _dbConnection = dbConnection;
+        _dbTransaction = dbTransaction;
+    }
+    
     public async Task<IEnumerable<IUser>> GetUsersList(
         CancellationToken cancellationToken,
         string? username,
         bool? admin,
         string? fullName,
         string? email,
-        int? skip = 0,
-        int? limit = null)
+        int? skip,
+        int? limit)
     {
         throw new NotImplementedException();
     }

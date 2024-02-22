@@ -1,14 +1,16 @@
-﻿namespace RedCobra.Domain.User;
+﻿using RedCobra.Domain.Wrappers;
+
+namespace RedCobra.Domain.User;
 
 public interface IUserApplication
 {
-    Task<IEnumerable<IUser>> GetUsersList(
+    Task<PagedListWrapper<IUser>> GetUsersList(
         CancellationToken cancellationToken,
         string? username,
         bool? admin,
         string? fullName,
         string? email,
-        int? skip,
+        int skip,
         int? limit);
     Task<IUser> AddUser(
         CancellationToken cancellationToken,

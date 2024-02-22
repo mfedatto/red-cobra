@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using RedCobra.Domain.Exceptions;
 using RedCobra.Domain.User;
+using RedCobra.Domain.Wrappers;
 
 namespace RedCobra.Application;
 
@@ -16,23 +18,34 @@ public class UserApplication : IUserApplication
         _service = service;
     }
     
-    public async Task<IEnumerable<IUser>> GetUsersList(
+    public async Task<PagedListWrapper<IUser>> GetUsersList(
         CancellationToken cancellationToken,
         string? username,
         bool? admin,
         string? fullName,
         string? email,
-        int? skip = 0,
+        int skip = 0,
         int? limit = null)
     {
-        return await _service.GetUsersList(
+        int total = await _service.GetUsersCount(
+            cancellationToken,
+            username,
+            admin,
+            fullName,
+            email);
+        
+        return (await _service.GetUsersList(
             cancellationToken,
             username,
             admin,
             fullName,
             email,
             skip,
-            limit);
+            limit))
+            .WrapUp(
+                skip,
+                limit,
+                total);
     }
     
     public async Task<IUser> AddUser(

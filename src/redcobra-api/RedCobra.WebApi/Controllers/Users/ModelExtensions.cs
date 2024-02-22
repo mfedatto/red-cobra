@@ -31,4 +31,16 @@ public static class ModelExtensions
             requestModel.FullName,
             requestModel.Email);
     }
+    
+    public static GetUserResponseModel ToGetUserResponseModel(
+        this IUser user)
+    {
+        return new(
+            user.UserId,
+            user.Username,
+            user.Admin,
+            user.FullName,
+            user.Email
+        );
+    }
 }

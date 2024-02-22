@@ -33,7 +33,7 @@ public class UsersController : Controller
         [FromQuery(Name = NamedArgs.UserAdmin)] bool? admin = null,
         [FromQuery(Name = NamedArgs.UserFullname)] string? fullName = null,
         [FromQuery(Name = NamedArgs.UserEmail)] string? email = null,
-        [FromQuery(Name = NamedArgs.Skip)] int? skip = 0,
+        [FromQuery(Name = NamedArgs.Skip)] int skip = 0,
         [FromQuery(Name = NamedArgs.Limit)] int? limit = null)
     {
         return Ok(
@@ -45,7 +45,7 @@ public class UsersController : Controller
                 email,
                 skip,
                 limit))
-            .WrapUp());
+            .WrapUp(user => user.ToGetUserResponseModel()));
     }
     
     [HttpPost(RouteTemplates.Users_v1.PostUser)]

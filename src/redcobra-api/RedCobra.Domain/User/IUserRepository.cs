@@ -1,6 +1,6 @@
 ﻿namespace RedCobra.Domain.User;
 
-public interface IUserService
+public interface IUserRepository
 {
     Task<IEnumerable<IUser>> GetUsersList(
         CancellationToken cancellationToken,

@@ -4,6 +4,8 @@ using Npgsql;
 using RedCobra.Domain.AppSettings;
 using RedCobra.Domain.Exceptions;
 using RedCobra.Domain.MainDbContext;
+using RedCobra.Domain.User;
+using RedCobra.Infrastructure.MainDbContext.Repositories;
 
 namespace RedCobra.Infrastructure.MainDbContext;
 
@@ -25,6 +27,8 @@ public sealed class UnitOfWork : IUnitOfWork
                     .ToString()
             );
     }
+    
+    public IUserRepository UserRepository => new UserRepository(_dbConnection, _dbTransaction);
 
     public async Task BeginTransactionAsync()
     {
