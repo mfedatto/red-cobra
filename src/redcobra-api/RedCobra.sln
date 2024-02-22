@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Application", "Red
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.Services", "RedCobra.Services\RedCobra.Services.csproj", "{E7FBED9C-A068-4F8C-B0D8-441BB469ACBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCobra.DomainTests", "RedCobra.DomainTests\RedCobra.DomainTests.csproj", "{84082C4A-72DD-49DD-BADC-3237760729FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E7FBED9C-A068-4F8C-B0D8-441BB469ACBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7FBED9C-A068-4F8C-B0D8-441BB469ACBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7FBED9C-A068-4F8C-B0D8-441BB469ACBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84082C4A-72DD-49DD-BADC-3237760729FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84082C4A-72DD-49DD-BADC-3237760729FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84082C4A-72DD-49DD-BADC-3237760729FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84082C4A-72DD-49DD-BADC-3237760729FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
