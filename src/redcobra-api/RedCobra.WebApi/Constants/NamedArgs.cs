@@ -7,4 +7,6 @@ public static class NamedArgs
     public const string UserAdmin = "user-admin";
     public const string UserFullname = "user-fullname";
     public const string UserEmail = "user-email";
+    public const string Skip = "skip";
+    public const string Limit = "limit";
 }

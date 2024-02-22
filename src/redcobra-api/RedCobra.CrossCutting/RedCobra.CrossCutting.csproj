@@ -22,6 +22,7 @@
       <ProjectReference Include="..\RedCobra.Application\RedCobra.Application.csproj" />
       <ProjectReference Include="..\RedCobra.Domain\RedCobra.Domain.csproj" />
       <ProjectReference Include="..\RedCobra.Infrastructure\RedCobra.Infrastructure.csproj" />
+      <ProjectReference Include="..\RedCobra.Services\RedCobra.Services.csproj" />
     </ItemGroup>
 
 </Project>

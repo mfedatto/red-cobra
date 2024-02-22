@@ -32,15 +32,19 @@ public class UsersController : Controller
         [FromQuery(Name = NamedArgs.UserName)] string? username = null,
         [FromQuery(Name = NamedArgs.UserAdmin)] bool? admin = null,
         [FromQuery(Name = NamedArgs.UserFullname)] string? fullName = null,
-        [FromQuery(Name = NamedArgs.UserEmail)] string? email = null)
+        [FromQuery(Name = NamedArgs.UserEmail)] string? email = null,
+        [FromQuery(Name = NamedArgs.Skip)] int? skip = 0,
+        [FromQuery(Name = NamedArgs.Limit)] int? limit = null)
     {
         return Ok(
-            (await _application.GetUsers(
+            (await _application.GetUsersList(
                 cancellationToken,
                 username,
                 admin,
                 fullName,
-                email))
+                email,
+                skip,
+                limit))
             .WrapUp());
     }
     
