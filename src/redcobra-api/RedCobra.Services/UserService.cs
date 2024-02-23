@@ -104,6 +104,8 @@ public class UserService : IUserService
         Guid userId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _uow.UserRepository.DeleteUser(
+            userId,
+            cancellationToken);
     }
 }

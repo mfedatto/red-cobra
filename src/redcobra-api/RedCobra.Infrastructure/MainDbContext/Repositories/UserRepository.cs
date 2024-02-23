@@ -139,7 +139,7 @@ public class UserRepository : IUserRepository
                 SELECT *
                 FROM Users
                 WHERE
-                    Admin = @UserId::uuid;
+                    UserId = @UserId::uuid;
                 """,
                 new
                 {
@@ -153,7 +153,7 @@ public class UserRepository : IUserRepository
                 row.FullName,
                 row.Email
             ))
-            .Single();
+            .SingleOrDefault();
     }
     
     public async Task UpdateUser(
@@ -168,7 +168,18 @@ public class UserRepository : IUserRepository
         Guid userId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        cancellationToken.ThrowIfClientClosedRequest();
+
+        await _dbConnection.ExecuteAsync(
+            """
+            DELETE FROM Users
+            WHERE UserId = @UserId;
+            """,
+            new
+            {
+                UserId = userId
+            },
+            transaction: _dbTransaction);
     }
 
     protected string GenerateSalt(

@@ -106,7 +106,7 @@ public class UsersController : Controller
     [HttpDelete(RouteTemplates.Users_v1.DeleteUser)]
     public async Task<ActionResult> DeleteUser(
         CancellationToken cancellationToken,
-        [FromQuery(Name = NamedArgs.UserId)] Guid userId)
+        [FromRoute(Name = NamedArgs.UserId)] Guid userId)
     {
         await _application.DeleteUser(
             userId,

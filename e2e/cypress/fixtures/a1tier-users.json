@@ -1,0 +1,38 @@
+[
+    {
+        "userId": "46c6b1cc-a874-4918-b74b-9de5061d7d35",
+        "username": "sadmeercat879",
+        "password": "company",
+        "admin": true,
+        "fullname": "Debra Hawkins",
+        "email": "debra.hawkins@redcobra.tld"
+    },
+    {
+        "userId": "aec106d2-0ce5-4897-96cf-6e5c99957bb9",
+        "username": "yellowkoala898",
+        "password": "<ryan",
+        "admin": true,
+        "fullname": "Marion Thomas",
+        "email": "marion.thomas@redcobra.tld"
+    },
+    {
+        "userId": "94e5a08c-4144-44c8-9bc4-aa1c47e570be",
+        "username": "crazyostrich706",
+        "password": "sheldon",
+        "admin": false,
+        "fullname": "Priya Fernandes",
+        "email": "priya.fernandes@example.com"
+    },
+    {
+        "userId": "856555e3-2075-4f3b-afd2-06540ec3f8b5",
+        "username": "blackbear444",
+        "password": "soulmate",
+        "admin": false
+    },
+    {
+        "userId": "37c0b054-2993-47c9-8bac-fd0e4cc82a08",
+        "username": "silverzebra872",
+        "password": "nicholas",
+        "admin": true
+    }
+]

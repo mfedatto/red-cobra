@@ -10,7 +10,7 @@ public static class ModelExtensions
         string username)
     {
         return factory.Create(
-            Guid.Empty,
+            requestModel.UserId ?? Guid.Empty,
             username,
             requestModel.Admin,
             requestModel.FullName,

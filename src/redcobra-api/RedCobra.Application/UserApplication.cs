@@ -72,9 +72,14 @@ public class UserApplication : IUserApplication
     {
         try
         {
-            return (await _service.GetUser(
+            IUser? user = await _service.GetUser(
                 userId,
-                cancellationToken))!;
+                cancellationToken);
+
+            if (user is default(IUser))
+                throw new UserNotFoundException();
+            
+            return user;
         }
         catch (ArgumentNullException)
         {
@@ -101,6 +106,7 @@ public class UserApplication : IUserApplication
         Guid userId,
         CancellationToken cancellationToken)
     {
+        await GetUser(userId, cancellationToken);
         await _service.DeleteUser(
             userId,
             cancellationToken);
