@@ -75,16 +75,17 @@ public class UsersController : Controller
         CancellationToken cancellationToken)
     {
         return Ok(
-            await _application.GetUser(
+            (await _application.GetUser(
                 userId,
-                cancellationToken));
+                cancellationToken))
+                .ToGetUserResponseModel());
     }
     
     [HttpPut(RouteTemplates.Users_v1.PutUser)]
     public async Task<ActionResult> PutUser(
-        CancellationToken cancellationToken,
         [FromRoute(Name = NamedArgs.UserId)] Guid userId,
-        [FromBody] PutUserRequestModel requestModel)
+        [FromBody] PutUserRequestModel requestModel,
+        CancellationToken cancellationToken)
     {
         string decodedCredentials = requestModel.Credentials.DecodeBase64();
         
