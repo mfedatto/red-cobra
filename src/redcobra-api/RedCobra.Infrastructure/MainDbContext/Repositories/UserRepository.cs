@@ -161,7 +161,35 @@ public class UserRepository : IUserRepository
         string password,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        string passwordSalt = GenerateSalt();
+        string passwordHash = HashPassword(password + passwordSalt);
+        
+        cancellationToken.ThrowIfClientClosedRequest();
+
+        await _dbConnection.ExecuteAsync(
+            """
+            UPDATE Users
+            SET
+                UserId = @UserId::uuid,
+                Username = @Username,
+                PasswordHash = @PasswordHash,
+                PasswordSalt = @PasswordSalt,
+                Admin = @Admin,
+                FullName = @FullName,
+                Email = @Email
+            WHERE UserId = @UserId;
+            """,
+            new UserRow
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Admin = user.Admin,
+                FullName = user.FullName,
+                Email = user.Email
+            },
+            _dbTransaction);
     }
     
     public async Task DeleteUser(

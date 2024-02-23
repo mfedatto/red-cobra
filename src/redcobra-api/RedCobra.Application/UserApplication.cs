@@ -76,7 +76,7 @@ public class UserApplication : IUserApplication
                 userId,
                 cancellationToken);
 
-            if (user is default(IUser))
+            if (user == default(IUser))
                 throw new UserNotFoundException();
             
             return user;

@@ -97,7 +97,10 @@ public class UserService : IUserService
         string password,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _uow.UserRepository.UpdateUser(
+            user,
+            password,
+            cancellationToken);
     }
     
     public async Task DeleteUser(

@@ -49,6 +49,7 @@ public class UsersController : Controller
     
     [HttpPost(RouteTemplates.Users_v1.PostUser)]
     public async Task<ActionResult<PostUserResponseModel>> PostUser(
+        [FromQuery(Name = NamedArgs.UserId)] Guid userId,
         [FromBody] PostUserRequestModel requestModel,
         CancellationToken cancellationToken)
     {
@@ -70,8 +71,8 @@ public class UsersController : Controller
     
     [HttpGet(RouteTemplates.Users_v1.GetUser)]
     public async Task<ActionResult<GetUserResponseModel>> GetUser(
-        CancellationToken cancellationToken,
-        [FromQuery(Name = NamedArgs.UserId)] Guid userId)
+        [FromRoute(Name = NamedArgs.UserId)] Guid userId,
+        CancellationToken cancellationToken)
     {
         return Ok(
             await _application.GetUser(
@@ -82,7 +83,7 @@ public class UsersController : Controller
     [HttpPut(RouteTemplates.Users_v1.PutUser)]
     public async Task<ActionResult> PutUser(
         CancellationToken cancellationToken,
-        [FromQuery(Name = NamedArgs.UserId)] Guid userId,
+        [FromRoute(Name = NamedArgs.UserId)] Guid userId,
         [FromBody] PutUserRequestModel requestModel)
     {
         string decodedCredentials = requestModel.Credentials.DecodeBase64();
