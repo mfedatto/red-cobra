@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedCobra.CrossCutting.CompositionRoot.Extensions;
 using RedCobra.Domain.AppSettings;
+using RedCobra.Domain.Licenses;
 using RedCobra.Domain.User;
 using RedCobra.Services;
 
@@ -13,5 +14,6 @@ public class ServiceContextBuilder : IContextBuilderInstaller
     public void Install(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ILicenseService, LicenseService>();
     }
 }

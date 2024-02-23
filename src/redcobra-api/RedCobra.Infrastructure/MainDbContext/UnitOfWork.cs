@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Npgsql;
 using RedCobra.Domain.AppSettings;
 using RedCobra.Domain.Exceptions;
+using RedCobra.Domain.Licenses;
 using RedCobra.Domain.MainDbContext;
 using RedCobra.Domain.User;
 using RedCobra.Infrastructure.MainDbContext.Repositories;
@@ -41,6 +42,11 @@ public sealed class UnitOfWork : IUnitOfWork
         _dbConnection,
         _dbTransaction,
         _serviceProvider.GetService<UserFactory>());
+    public ILicenseRepository LicenseRepository => new LicenseRepository(
+        _serviceProvider.GetService<ILogger<LicenseRepository>>(),
+        _dbConnection,
+        _dbTransaction,
+        _serviceProvider.GetService<LicenseFactory>());
 
     public async Task BeginTransactionAsync()
     {

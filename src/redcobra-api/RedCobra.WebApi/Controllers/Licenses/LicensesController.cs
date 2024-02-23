@@ -30,13 +30,14 @@ public class LicensesController : Controller
         bool includeExpired,
         CancellationToken cancellationToken)
     {
-        return Ok(await _application.GetUserLicensesList(
+        return Ok((await _application.GetUserLicensesList(
             userId,
-            licenseNumber,
             aCategory,
             bCategory,
             includeExpired,
-            cancellationToken));
+            cancellationToken)
+                .ConfigureAwait(false))
+            .Select(license => license.ToGetLicenseResponseModel()));
     }
     
     [HttpPut(RouteTemplates.Licenses_v1.PutLicense)]
@@ -57,6 +58,7 @@ public class LicensesController : Controller
                 requestModel.LicenseFileId,
                 requestModel.Issuer,
                 requestModel.IssueDate),
-            cancellationToken));
+            cancellationToken)
+            .ConfigureAwait(false));
     }
 }

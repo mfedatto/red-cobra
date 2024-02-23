@@ -66,7 +66,8 @@ public class UsersController : Controller
                     requestModel,
                     decodedCredentialsParts[0]),
                 decodedCredentialsParts[1],
-                cancellationToken));
+                cancellationToken)
+                .ConfigureAwait(false));
     }
     
     [HttpGet(RouteTemplates.Users_v1.GetUser)]
@@ -77,7 +78,8 @@ public class UsersController : Controller
         return Ok(
             (await _application.GetUser(
                 userId,
-                cancellationToken))
+                cancellationToken)
+                .ConfigureAwait(false))
                 .ToGetUserResponseModel());
     }
     
@@ -100,7 +102,8 @@ public class UsersController : Controller
                 requestModel,
                 decodedCredentialsParts[0]),
             decodedCredentialsParts[1],
-            cancellationToken);
+            cancellationToken)
+            .ConfigureAwait(false);
     
         return Ok();
     }
@@ -112,7 +115,8 @@ public class UsersController : Controller
     {
         await _application.DeleteUser(
             userId,
-            cancellationToken);
+            cancellationToken)
+            .ConfigureAwait(false);
         
         return Ok();
     }
