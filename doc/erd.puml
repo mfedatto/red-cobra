@@ -29,7 +29,7 @@ entity "LicenseFiles" as entLicenseFiles {
 entity "Licenses" as entLicenses {
     * LicenseId : uuid <<PK>>
     --
-    * LicenseNumber : string <<unique>>
+    * LicenseNumber : string
     * UserId : uuid <<FK>>
     * ExpirationDate : Date
     * ACategory : bool

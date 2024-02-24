@@ -6,17 +6,30 @@
         "admin": true,
         "fullname": "Debra Hawkins",
         "email": "debra.hawkins@redcobra.tld",
-        "license": {
-            "licenseId" : "14bd4827-1b7d-430e-a7c0-a2713bd7a991",
-            "licenseNumber" : "300729300",
-            "expirationDate" : "2031-04-12",
-            "aCategory" : true,
-            "bCategory" : true,
-            "dateOfBirth" : "1954-04-12",
-            "licenseFileId" : "4961cddf-b555-4c4e-ada7-dab4d910749b",
-            "issuer" : "Detran SP",
-            "issueDate" : "2017-06-07"
-        }
+        "licenses": [
+            {
+                "licenseId" : "14bd4827-1b7d-430e-a7c0-a2713bd7a991",
+                "licenseNumber" : "300729300",
+                "expirationDate" : "2031-04-12",
+                "aCategory" : true,
+                "bCategory" : true,
+                "dateOfBirth" : "1954-04-12",
+                "licenseFileId" : "4961cddf-b555-4c4e-ada7-dab4d910749b",
+                "issuer" : "Detran SP",
+                "issueDate" : "2017-06-07"
+            },
+            {
+                "licenseId" : "206f6710-f1bb-48e2-83b8-f3f0b648434f",
+                "licenseNumber" : "300729300",
+                "expirationDate" : "2017-07-12",
+                "aCategory" : true,
+                "bCategory" : false,
+                "dateOfBirth" : "1954-04-12",
+                "licenseFileId" : "35d8af19-2d5e-4033-8c67-0b4cbcb93a63",
+                "issuer" : "Detran SP",
+                "issueDate" : "2005-04-11"
+            }
+        ]
     },
     {
         "userId": "aec106d2-0ce5-4897-96cf-6e5c99957bb9",

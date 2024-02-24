@@ -104,7 +104,21 @@ public class LicenseRepository : ILicenseRepository
         Guid licenseId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        cancellationToken.ThrowIfClientClosedRequest();
+
+        await _dbConnection.ExecuteAsync(
+            """
+            DELETE FROM Licenses
+            WHERE
+                LicenseId = @LicenseId AND
+                UserId = @UserId;
+            """,
+            new
+            {
+                LicenseId = licenseId,
+                UserId = userId
+            },
+            transaction: _dbTransaction);
     }
 }
 

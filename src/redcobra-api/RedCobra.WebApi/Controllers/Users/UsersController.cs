@@ -23,30 +23,33 @@ public class UsersController : Controller
         _application = application;
         _factory = factory;
     }
-    
+
     [HttpGet(RouteTemplates.Users_v1.GetUsersList)]
     public async Task<ActionResult<PagedListWrapper<GetUserResponseModel>>> GetUsersList(
         [FromQuery(Name = NamedArgs.UserName)] string username,
-        [FromQuery(Name = NamedArgs.UserAdmin)] bool? admin,
-        [FromQuery(Name = NamedArgs.UserFullname)] string fullName,
-        [FromQuery(Name = NamedArgs.UserEmail)] string email,
+        [FromQuery(Name = NamedArgs.UserAdmin)]
+        bool? admin,
+        [FromQuery(Name = NamedArgs.UserFullname)]
+        string fullName,
+        [FromQuery(Name = NamedArgs.UserEmail)]
+        string email,
         [FromQuery(Name = NamedArgs.Skip)] int skip,
         [FromQuery(Name = NamedArgs.Limit)] int limit,
         CancellationToken cancellationToken)
     {
         return Ok(
             (await _application.GetUsersList(
-                username,
-                admin,
-                fullName,
-                email,
-                skip,
-                limit,
-                cancellationToken)
+                    username,
+                    admin,
+                    fullName,
+                    email,
+                    skip,
+                    limit,
+                    cancellationToken)
                 .ConfigureAwait(false))
             .WrapUp(user => user.ToGetUserResponseModel()));
     }
-    
+
     [HttpPost(RouteTemplates.Users_v1.PostUser)]
     public async Task<ActionResult<PostUserResponseModel>> PostUser(
         [FromQuery(Name = NamedArgs.UserId)] Guid userId,
@@ -54,22 +57,23 @@ public class UsersController : Controller
         CancellationToken cancellationToken)
     {
         string decodedCredentials = requestModel.Credentials.DecodeBase64();
-        
+
         if (!decodedCredentials.Contains(':'))
             throw new BadCredentialsException();
-        
+
         string[] decodedCredentialsParts = decodedCredentials.Split(':');
-        
+
         return Ok(
-            await _application.AddUser(
-                _factory.ToUser(
-                    requestModel,
-                    decodedCredentialsParts[0]),
-                decodedCredentialsParts[1],
-                cancellationToken)
-                .ConfigureAwait(false));
+            (await _application.AddUser(
+                    _factory.ToUser(
+                        requestModel,
+                        decodedCredentialsParts[0]),
+                    decodedCredentialsParts[1],
+                    cancellationToken)
+                .ConfigureAwait(false))
+            .ToGetUserResponseModel());
     }
-    
+
     [HttpGet(RouteTemplates.Users_v1.GetUser)]
     public async Task<ActionResult<GetUserResponseModel>> GetUser(
         [FromRoute(Name = NamedArgs.UserId)] Guid userId,
@@ -77,12 +81,12 @@ public class UsersController : Controller
     {
         return Ok(
             (await _application.GetUser(
-                userId,
-                cancellationToken)
+                    userId,
+                    cancellationToken)
                 .ConfigureAwait(false))
-                .ToGetUserResponseModel());
+            .ToGetUserResponseModel());
     }
-    
+
     [HttpPut(RouteTemplates.Users_v1.PutUser)]
     public async Task<ActionResult> PutUser(
         [FromRoute(Name = NamedArgs.UserId)] Guid userId,
@@ -90,34 +94,34 @@ public class UsersController : Controller
         CancellationToken cancellationToken)
     {
         string decodedCredentials = requestModel.Credentials.DecodeBase64();
-        
+
         if (!decodedCredentials.Contains(':'))
             throw new BadCredentialsException();
-        
+
         string[] decodedCredentialsParts = decodedCredentials.Split(':');
-        
+
         await _application.UpdateUser(
-            _factory.ToUser(
-                userId,
-                requestModel,
-                decodedCredentialsParts[0]),
-            decodedCredentialsParts[1],
-            cancellationToken)
+                _factory.ToUser(
+                    userId,
+                    requestModel,
+                    decodedCredentialsParts[0]),
+                decodedCredentialsParts[1],
+                cancellationToken)
             .ConfigureAwait(false);
-    
+
         return Ok();
     }
-    
+
     [HttpDelete(RouteTemplates.Users_v1.DeleteUser)]
     public async Task<ActionResult> DeleteUser(
         CancellationToken cancellationToken,
         [FromRoute(Name = NamedArgs.UserId)] Guid userId)
     {
         await _application.DeleteUser(
-            userId,
-            cancellationToken)
+                userId,
+                cancellationToken)
             .ConfigureAwait(false);
-        
+
         return Ok();
     }
 }

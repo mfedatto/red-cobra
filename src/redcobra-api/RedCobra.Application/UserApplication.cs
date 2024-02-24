@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RedCobra.Domain.Exceptions;
+using RedCobra.Domain.Licenses;
 using RedCobra.Domain.User;
 using RedCobra.Domain.Wrappers;
 
@@ -9,13 +10,16 @@ public class UserApplication : IUserApplication
 {
     private readonly ILogger<UserApplication> _logger;
     private readonly IUserService _service;
+    private readonly ILicenseService _licenseService;
 
     public UserApplication(
         ILogger<UserApplication> logger,
-        IUserService service)
+        IUserService service,
+        ILicenseService licenseService)
     {
         _logger = logger;
         _service = service;
+        _licenseService = licenseService;
     }
     
     public async Task<PagedListWrapper<IUser>> GetUsersList(
@@ -106,7 +110,21 @@ public class UserApplication : IUserApplication
         Guid userId,
         CancellationToken cancellationToken)
     {
-        await GetUser(userId, cancellationToken);
+        IEnumerable<ILicense> userLicensesList = await _licenseService.GetUserLicensesList(
+            userId,
+            null,
+            null,
+            true,
+            cancellationToken);
+        
+        foreach (ILicense license in userLicensesList)
+        {
+            await _licenseService.DeleteLicense(
+                userId,
+                license.LicenseId,
+                cancellationToken);
+        }
+
         await _service.DeleteUser(
             userId,
             cancellationToken);

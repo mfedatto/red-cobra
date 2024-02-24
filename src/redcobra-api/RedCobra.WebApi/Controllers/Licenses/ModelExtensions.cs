@@ -29,12 +29,12 @@ public static class ModelExtensions
             LicenseId = license.LicenseId,
             LicenseNumber = license.LicenseNumber,
             UserId = license.UserId,
-            ExpirationDate = license.ExpirationDate,
+            ExpirationDate = license.ExpirationDate.ToString("yyyy-MM-dd"),
             ACategory = license.ACategory,
             BCategory = license.BCategory,
-            DateOfBirth = license.DateOfBirth,
+            DateOfBirth = license.DateOfBirth.ToString("yyyy-MM-dd"),
             Issuer = license.Issuer,
-            IssueDate = license.IssueDate
+            IssueDate = license.IssueDate?.ToString("yyyy-MM-dd")
         };
     }
 }

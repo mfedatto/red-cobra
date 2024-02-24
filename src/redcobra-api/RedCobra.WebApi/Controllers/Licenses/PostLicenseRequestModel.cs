@@ -1,6 +1,6 @@
 namespace RedCobra.WebApi.Controllers.Licenses;
 
-public record PutLicenseRequestModel
+public record PostLicenseRequestModel
 {
     public Guid LicenseId { get; init; }
     public string LicenseNumber { get; init; }

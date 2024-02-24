@@ -20,7 +20,7 @@ public class LicensesController : Controller
         _application = application;
         _factory = factory;
     }
-    
+
     [HttpGet(RouteTemplates.Licenses_v1.GetLicensesList)]
     public async Task<ActionResult<GetLicenseResponseModel[]>> GetLicensesList(
         [FromRoute(Name = NamedArgs.UserId)] Guid userId,
@@ -31,34 +31,36 @@ public class LicensesController : Controller
         CancellationToken cancellationToken)
     {
         return Ok((await _application.GetUserLicensesList(
-            userId,
-            aCategory,
-            bCategory,
-            includeExpired,
-            cancellationToken)
+                    userId,
+                    aCategory,
+                    bCategory,
+                    includeExpired,
+                    cancellationToken)
                 .ConfigureAwait(false))
             .Select(license => license.ToGetLicenseResponseModel()));
     }
-    
-    [HttpPut(RouteTemplates.Licenses_v1.PutLicense)]
-    public async Task<ActionResult> PutLicense(
+
+    [HttpPost(RouteTemplates.Licenses_v1.PostLicense)]
+    public async Task<ActionResult<PostLicenseResponseModel>> PostLicense(
         [FromRoute(Name = NamedArgs.UserId)] Guid userId,
-        PutLicenseRequestModel requestModel,
+        [FromBody] PostLicenseRequestModel requestModel,
         CancellationToken cancellationToken)
     {
-        return Ok(await _application.AddLicense(
-            _factory.Create(
-                requestModel.LicenseId,
-                requestModel.LicenseNumber,
-                userId,
-                requestModel.ExpirationDate,
-                requestModel.ACategory,
-                requestModel.BCategory,
-                requestModel.DateOfBirth,
-                requestModel.LicenseFileId,
-                requestModel.Issuer,
-                requestModel.IssueDate),
-            cancellationToken)
-            .ConfigureAwait(false));
+        return Ok(
+            (await _application.AddLicense(
+                    _factory.Create(
+                        requestModel.LicenseId,
+                        requestModel.LicenseNumber,
+                        userId,
+                        requestModel.ExpirationDate,
+                        requestModel.ACategory,
+                        requestModel.BCategory,
+                        requestModel.DateOfBirth,
+                        requestModel.LicenseFileId,
+                        requestModel.Issuer,
+                        requestModel.IssueDate),
+                    cancellationToken)
+                .ConfigureAwait(false))
+            .ToPostLicenseResponseModel());
     }
 }
