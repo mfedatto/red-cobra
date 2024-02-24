@@ -61,6 +61,18 @@ describe('Tier A1 - Default Dataset: /v1/users', () => {
         cy.rcFunctions.userAssertions(response.body, user);
       });
     });
+
+    it(`Gets a user licenses (${user.username})`, () => {
+      cy.request({
+        method: 'GET',
+        url: `/v1/users/${user.userId}/licenses`,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+        cy.rcFunctions.userAssertions(response.body, user);
+      });
+    });
+
   });
 
   it('Gets a list of users', () => {
