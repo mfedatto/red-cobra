@@ -24,7 +24,7 @@ public class LicenseRepository : ILicenseRepository
         _dbTransaction = dbTransaction;
         _factory = factory;
     }
-    
+
     public async Task<IEnumerable<ILicense>> GetUserLicensesList(
         Guid userId,
         bool? aCategory,
@@ -64,7 +64,7 @@ public class LicenseRepository : ILicenseRepository
                 row.BirthDate,
                 row.LicenseFileId,
                 row.Issuer,
-                row.IssueDate 
+                row.IssueDate
             ));
     }
 
@@ -72,7 +72,15 @@ public class LicenseRepository : ILicenseRepository
         ILicense license,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        cancellationToken.ThrowIfClientClosedRequest();
+
+        await _dbConnection.ExecuteAsync(
+            """
+            INSERT INTO Licenses (LicenseId, LicenseNumber, UserId, ExpirationDate, ACategory, BCategory, BirthDate, LicenseFileId, Issuer, IssueDate)
+            VALUES (@LicenseId::uuid, @LicenseNumber, @UserId::uuid, @ExpirationDate::date, @ACategory, @BCategory, @BirthDate::date, @LicenseFileId, @Issuer, @IssueDate::date);
+            """,
+            license,
+            transaction: _dbTransaction);
     }
 
     public async Task<ILicense> GetLicense(

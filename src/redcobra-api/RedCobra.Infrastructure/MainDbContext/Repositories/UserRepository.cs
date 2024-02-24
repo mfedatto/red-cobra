@@ -112,8 +112,7 @@ public class UserRepository : IUserRepository
         await _dbConnection.ExecuteAsync(
             """
             INSERT INTO Users (UserId, Username, PasswordHash, PasswordSalt, Admin, FullName, Email)
-            VALUES (@UserId, @Username, @PasswordHash, @PasswordSalt, @Admin, @FullName, @Email)
-            RETURNING *;
+            VALUES (@UserId, @Username, @PasswordHash, @PasswordSalt, @Admin, @FullName, @Email);
             """,
             new UserRow
             {
