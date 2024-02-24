@@ -1,4 +1,4 @@
-cy.redCobra = {
+cy.rcFunctions = {
     userAssertions: (sourceUser, referenceUser) => {
         expect(sourceUser).to.be.an("object");
         expect(sourceUser.userId).to.not.be.eq(null);

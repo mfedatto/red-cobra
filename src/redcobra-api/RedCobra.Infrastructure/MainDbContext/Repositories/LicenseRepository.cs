@@ -61,13 +61,13 @@ public class LicenseRepository : ILicenseRepository
                 row.ExpirationDate,
                 row.ACategory,
                 row.BCategory,
-                row.BirthDate,
+                row.DateOfBirth,
                 row.LicenseFileId,
                 row.Issuer,
                 row.IssueDate
             ));
     }
-
+    
     public async Task AddLicense(
         ILicense license,
         CancellationToken cancellationToken)
@@ -76,8 +76,8 @@ public class LicenseRepository : ILicenseRepository
 
         await _dbConnection.ExecuteAsync(
             """
-            INSERT INTO Licenses (LicenseId, LicenseNumber, UserId, ExpirationDate, ACategory, BCategory, BirthDate, LicenseFileId, Issuer, IssueDate)
-            VALUES (@LicenseId::uuid, @LicenseNumber, @UserId::uuid, @ExpirationDate::date, @ACategory, @BCategory, @BirthDate::date, @LicenseFileId, @Issuer, @IssueDate::date);
+            INSERT INTO Licenses (LicenseId, LicenseNumber, UserId, ExpirationDate, ACategory, BCategory, DateOfBirth, LicenseFileId, Issuer, IssueDate)
+            VALUES (@LicenseId::uuid, @LicenseNumber, @UserId::uuid, @ExpirationDate::date, @ACategory, @BCategory, @DateOfBirth::date, @LicenseFileId, @Issuer, @IssueDate::date);
             """,
             license,
             transaction: _dbTransaction);
@@ -116,7 +116,7 @@ file record LicenseRow
     public DateTime ExpirationDate { get; init; }
     public bool ACategory { get; init; }
     public bool BCategory { get; init; }
-    public DateTime BirthDate { get; init; }
+    public DateTime DateOfBirth { get; init; }
     public Guid? LicenseFileId { get; init; }
     public string? Issuer { get; init; }
     public DateTime? IssueDate { get; init; }

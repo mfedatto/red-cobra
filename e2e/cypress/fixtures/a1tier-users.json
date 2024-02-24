@@ -5,7 +5,20 @@
         "password": "company",
         "admin": true,
         "fullname": "Debra Hawkins",
-        "email": "debra.hawkins@redcobra.tld"
+        "email": "debra.hawkins@redcobra.tld",
+        "licenses": [
+            {
+                "licenseId" : "14bd4827-1b7d-430e-a7c0-a2713bd7a991",
+                "licenseNumber" : "300729300",
+                "expirationDate" : "2031-04-12",
+                "aCategory" : true,
+                "bCategory" : true,
+                "dateOfBirth" : "1954-04-12",
+                "licenseFileId" : "",
+                "issuer" : "",
+                "issueDate" : ""
+            }
+        ]
     },
     {
         "userId": "aec106d2-0ce5-4897-96cf-6e5c99957bb9",

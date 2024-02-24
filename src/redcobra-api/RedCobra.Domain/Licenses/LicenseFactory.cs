@@ -9,7 +9,7 @@ public class LicenseFactory
         DateTime expirationDate,
         bool aCategory,
         bool bCategory,
-        DateTime birthDate,
+        DateTime dateOfBirth,
         Guid? licenseFileId,
         string? issuer,
         DateTime? issueDate)
@@ -22,7 +22,7 @@ public class LicenseFactory
             ExpirationDate = expirationDate,
             ACategory = aCategory,
             BCategory = bCategory,
-            BirthDate = birthDate,
+            DateOfBirth = dateOfBirth,
             LicenseFileId = licenseFileId,
             Issuer = issuer,
             IssueDate = issueDate
@@ -38,7 +38,7 @@ file record License : ILicense
     public DateTime ExpirationDate { get; init; }
     public bool ACategory { get; init; }
     public bool BCategory { get; init; }
-    public DateTime BirthDate { get; init; }
+    public DateTime DateOfBirth { get; init; }
     public Guid? LicenseFileId { get; init; }
     public string? Issuer { get; init; }
     public DateTime? IssueDate { get; init; }

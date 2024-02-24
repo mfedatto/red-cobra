@@ -34,7 +34,7 @@ entity "Licenses" as entLicenses {
     * ExpirationDate : Date
     * ACategory : bool
     * BCategory : bool
-    * BirthDate : date
+    * DateOfBirth : date
     * LicenseFileId : uuid <<FK>>
     Issuer : string
     IssueDate : Date

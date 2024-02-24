@@ -54,7 +54,7 @@ public class LicensesController : Controller
                 requestModel.ExpirationDate,
                 requestModel.ACategory,
                 requestModel.BCategory,
-                requestModel.BirthDate,
+                requestModel.DateOfBirth,
                 requestModel.LicenseFileId,
                 requestModel.Issuer,
                 requestModel.IssueDate),

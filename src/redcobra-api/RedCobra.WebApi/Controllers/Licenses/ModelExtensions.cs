@@ -15,7 +15,7 @@ public static class ModelExtensions
             ExpirationDate = license.ExpirationDate,
             ACategory = license.ACategory,
             BCategory = license.BCategory,
-            BirthDate = license.BirthDate,
+            DateOfBirth = license.DateOfBirth,
             Issuer = license.Issuer,
             IssueDate = license.IssueDate
         };
@@ -32,7 +32,7 @@ public static class ModelExtensions
             ExpirationDate = license.ExpirationDate,
             ACategory = license.ACategory,
             BCategory = license.BCategory,
-            BirthDate = license.BirthDate,
+            DateOfBirth = license.DateOfBirth,
             Issuer = license.Issuer,
             IssueDate = license.IssueDate
         };

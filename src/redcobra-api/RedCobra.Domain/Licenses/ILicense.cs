@@ -8,7 +8,7 @@ public interface ILicense
     DateTime ExpirationDate { get; }
     bool ACategory { get; }
     bool BCategory { get; }
-    DateTime BirthDate { get; }
+    DateTime DateOfBirth { get; }
     Guid? LicenseFileId { get; }
     string? Issuer { get; }
     DateTime? IssueDate { get; }
