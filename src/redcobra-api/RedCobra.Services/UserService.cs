@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RedCobra.Domain.Extensions;
 using RedCobra.Domain.MainDbContext;
 using RedCobra.Domain.User;
 
@@ -71,13 +72,17 @@ public class UserService : IUserService
                 Guid.NewGuid(),
                 user.Username,
                 user.Admin,
-                user.FullName,
-                user.Email);
+                user.FullName!,
+                user.Email!);
         }
+        
+        string passwordSalt = Toolbox.PinchOfSalt();
+        string passwordHash = password.Sha256Hash(passwordSalt);
         
         await _uow.UserRepository.AddUser(
             addingUser,
-            password,
+            passwordSalt,
+            passwordHash,
             cancellationToken);
 
         return addingUser;
@@ -97,9 +102,13 @@ public class UserService : IUserService
         string password,
         CancellationToken cancellationToken)
     {
+        string passwordSalt = Toolbox.PinchOfSalt();
+        string passwordHash = password.Sha256Hash(passwordSalt);
+        
         await _uow.UserRepository.UpdateUser(
             user,
-            password,
+            passwordSalt,
+            passwordHash,
             cancellationToken);
     }
     

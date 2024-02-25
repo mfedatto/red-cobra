@@ -92,8 +92,13 @@ describe('Tier A1 - Default Dataset: /v1/users', () => {
             },
             failOnStatusCode: false,
           }).then((response) => {
-            expect(response.status).to.eq(200);
-            rc.assertions.license(user.userId, response.body, license);
+            if (license.rbTestData.expired) {
+              expect(response.status).to.eq(400);
+            }
+            else {
+              expect(response.status).to.eq(200);
+              rc.assertions.license(user.userId, response.body, license);
+            }
           });
         });
       });

@@ -8,6 +8,7 @@
         "email": "debra.hawkins@redcobra.tld",
         "licenses": [
             {
+                "rbTestData" : { "expired": false },
                 "licenseId" : "14bd4827-1b7d-430e-a7c0-a2713bd7a991",
                 "licenseNumber" : "300729300",
                 "expirationDate" : "2031-04-12",
@@ -19,6 +20,7 @@
                 "issueDate" : "2017-06-07"
             },
             {
+                "rbTestData" : { "expired": true },
                 "licenseId" : "206f6710-f1bb-48e2-83b8-f3f0b648434f",
                 "licenseNumber" : "300729300",
                 "expirationDate" : "2017-07-12",

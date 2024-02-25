@@ -37,16 +37,11 @@ public sealed class UnitOfWork : IUnitOfWork
             );
     }
     
-    public IUserRepository UserRepository => new UserRepository(
-        _serviceProvider.GetService<ILogger<UserRepository>>(),
-        _dbConnection,
-        _dbTransaction,
-        _serviceProvider.GetService<UserFactory>());
-    public ILicenseRepository LicenseRepository => new LicenseRepository(
-        _serviceProvider.GetService<ILogger<LicenseRepository>>(),
-        _dbConnection,
-        _dbTransaction,
-        _serviceProvider.GetService<LicenseFactory>());
+    public DbConnection Connection => _dbConnection;
+    public DbTransaction? Transaction => _dbTransaction;
+    
+    public IUserRepository UserRepository => _serviceProvider.GetService<IUserRepository>()!;
+    public ILicenseRepository LicenseRepository => _serviceProvider.GetService<ILicenseRepository>()!;
 
     public async Task BeginTransactionAsync()
     {

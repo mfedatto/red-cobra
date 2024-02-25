@@ -2,6 +2,7 @@ using System.Data.Common;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using RedCobra.Domain.Exceptions;
+using RedCobra.Domain.Extensions;
 using RedCobra.Domain.Licenses;
 
 namespace RedCobra.Infrastructure.MainDbContext.Repositories;
@@ -51,20 +52,22 @@ public class LicenseRepository : ILicenseRepository
                     ACategory = aCategory,
                     BCategory = bCategory,
                     IncludeExpired = includeExpired,
-                    ExpirationDateLimit = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")
+                    ExpirationDateLimit = DateTime.Now
+                        .ClearTime()
+                        .ToString("yyyy-MM-dd")
                 },
                 _dbTransaction))
             .Select(row => _factory.Create(
                 row.LicenseId,
                 row.LicenseNumber,
                 row.UserId,
-                row.ExpirationDate,
+                row.ExpirationDate.ClearTime(),
                 row.ACategory,
                 row.BCategory,
-                row.DateOfBirth,
+                row.DateOfBirth.ClearTime(),
                 row.LicenseFileId,
                 row.Issuer,
-                row.IssueDate
+                row.IssueDate?.ClearTime()
             ));
     }
     

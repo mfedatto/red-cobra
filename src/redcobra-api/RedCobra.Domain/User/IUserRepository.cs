@@ -18,14 +18,16 @@ public interface IUserRepository
         CancellationToken cancellationToken);
     Task AddUser(
         IUser user,
-        string password,
+        string passwordSalt,
+        string passwordHash,
         CancellationToken cancellationToken);
     Task<IUser?> GetUser(
         Guid userId,
         CancellationToken cancellationToken);
     Task UpdateUser(
         IUser user,
-        string password,
+        string passwordSalt,
+        string passwordHash,
         CancellationToken cancellationToken);
     Task DeleteUser(
         Guid userId,

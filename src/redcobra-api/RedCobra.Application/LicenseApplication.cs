@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using RedCobra.Domain.Exceptions;
 using RedCobra.Domain.Licenses;
 
 namespace RedCobra.Application;
@@ -35,6 +36,21 @@ public class LicenseApplication : ILicenseApplication
         ILicense license,
         CancellationToken cancellationToken)
     {
+        if (license.IsExpired(30))
+            throw new LicenseExpiredException();
+        
+        IEnumerable<ILicense> userLicenses = await _service.GetUserLicensesList(
+            license.UserId,
+            null,
+            null,
+            includeExpired: false,
+            cancellationToken);
+
+        if (userLicenses.Any(ul =>
+                (license.ACategory == ul.ACategory || !license.ACategory && ul.ACategory)
+                && (license.BCategory == ul.BCategory || !license.BCategory && ul.BCategory)))
+            throw new UserAlreadyHasThisLicenseException();
+
         return await _service.AddLicense(
             license,
             cancellationToken);
